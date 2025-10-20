@@ -12,7 +12,7 @@ export default function DeviceDetails({ comments }: DeviceDetailsProps) {
                 <p className="text-left mb-1 text-sm">Comentarios</p>
                 <textarea
                     readOnly
-                    value={comments || "Sin comentarios"}
+                    value={comments || " "}
                     className="w-full border border-gray-400 rounded-md p-2 text-sm bg-white resize-none"
                 />
             </div>

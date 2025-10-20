@@ -7,12 +7,12 @@ import Modal from "../components/Modal";
 import ActionModalContent from "../components/ActionModalContent";
 
 const mockDevices = [
-    { id: 1, device: "Portátil", model: "Acer", code: "USO-001", date: "15/10/25", status: "En uso", location: "RRHH", person: "Laura Santana Suárez" },
-    { id: 2, device: "Teclado", model: "Logitech", code: "USO-002", date: "10/10/25", status: "En uso", location: "Informática", person: "Laura Santana Suárez", comments: "A este portátil le faltan algunas teclas" },
-    { id: 3, device: "Ratón", model: "Nilox", code: "USO-003", date: "20/10/25", status: "En uso", location: "Telemarketing", person: "Laura Santana Suárez" },
+    { id: 1, device: "Monitor", model: "Samsung", code: "DIS-001", date: "25/10/25", status: "Disponible", location: "Almacén" },
+    { id: 2, device: "Portátil", model: "HP", code: "DIS-002", date: "14/10/25", status: "Disponible", location: "Almacén" },
+    { id: 3, device: "Teclado", model: "Logitech", code: "DIS-003", date: "05/10/25", status: "Disponible", location: "Almacén" },
 ];
 
-export default function DevicesInUse() {
+export default function DevicesAvailable() {
     const [search, setSearch] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [action, setAction] = useState<"add" | "assign" | "remove" | null>(null);
@@ -34,7 +34,7 @@ export default function DevicesInUse() {
 
     return (
         <div>
-            <PageHeader title="ARTÍCULOS EN USO" subtitle="Últimos movimientos registrados" />
+            <PageHeader title="ARTÍCULOS DISPONIBLES" subtitle="Elementos actualmente en almacén" />
 
             <div className="flex justify-end mb-6">
                 <HeaderActions
@@ -48,14 +48,11 @@ export default function DevicesInUse() {
             <DeviceTable devices={mockDevices.map(d => ({
                 ...d,
                 onRemove: () => handleOpenModal("remove")
-            }))} />
+            }))}
+            showPerson={false}
+             />
 
-            {/* Modal Reutilizable */}
-            <Modal
-                isOpen={modalOpen}
-                onClose={handleCloseModal}
-                title=""
-            >
+            <Modal isOpen={modalOpen} onClose={handleCloseModal} title="">
                 {action && (
                     <ActionModalContent
                         action={action}

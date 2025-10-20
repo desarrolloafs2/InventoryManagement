@@ -7,12 +7,11 @@ import Modal from "../components/Modal";
 import ActionModalContent from "../components/ActionModalContent";
 
 const mockDevices = [
-    { id: 1, device: "Portátil", model: "Acer", code: "USO-001", date: "15/10/25", status: "En uso", location: "RRHH", person: "Laura Santana Suárez" },
-    { id: 2, device: "Teclado", model: "Logitech", code: "USO-002", date: "10/10/25", status: "En uso", location: "Informática", person: "Laura Santana Suárez", comments: "A este portátil le faltan algunas teclas" },
-    { id: 3, device: "Ratón", model: "Nilox", code: "USO-003", date: "20/10/25", status: "En uso", location: "Telemarketing", person: "Laura Santana Suárez" },
+    { id: 1, device: "Ratón", model: "Nilox", code: "BAJ-001", date: "13/10/25", status: "Baja", location: "Dpt. Informática", comments: "Equipo obsoleto" },
+    { id: 2, device: "Monitor", model: "Philips", code: "BAJ-002", date: "09/10/25", status: "Baja", location: "Dpt. Informática", comments: "Pantalla rota" },
 ];
 
-export default function DevicesInUse() {
+export default function DevicesDiscarded() {
     const [search, setSearch] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [action, setAction] = useState<"add" | "assign" | "remove" | null>(null);
@@ -34,7 +33,7 @@ export default function DevicesInUse() {
 
     return (
         <div>
-            <PageHeader title="ARTÍCULOS EN USO" subtitle="Últimos movimientos registrados" />
+            <PageHeader title="ARTÍCULOS DE BAJA" subtitle="Equipos retirados del inventario" />
 
             <div className="flex justify-end mb-6">
                 <HeaderActions
@@ -48,14 +47,11 @@ export default function DevicesInUse() {
             <DeviceTable devices={mockDevices.map(d => ({
                 ...d,
                 onRemove: () => handleOpenModal("remove")
-            }))} />
+            }))}
+            showPerson={false}
+             />
 
-            {/* Modal Reutilizable */}
-            <Modal
-                isOpen={modalOpen}
-                onClose={handleCloseModal}
-                title=""
-            >
+            <Modal isOpen={modalOpen} onClose={handleCloseModal} title="">
                 {action && (
                     <ActionModalContent
                         action={action}

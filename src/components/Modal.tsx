@@ -17,7 +17,7 @@ export default function Modal({ isOpen, title, children, onClose }: ModalProps) 
     >
       <div
         className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 relative animate-fadeIn"
-        onClick={(e) => e.stopPropagation()} // Evita cerrar al hacer clic dentro
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}

@@ -4,41 +4,39 @@ import DeviceDetails from "./DeviceDetails";
 import type { Device } from "../types/Device";
 
 interface DeviceRowProps {
-  device: Device;
-  onRemove?: () => void;
+    device: Device & { onRemove?: () => void };
+    showPerson?: boolean;
 }
 
-export default function DeviceRow({ device }: DeviceRowProps) {
-  const [expanded, setExpanded] = useState(false);
+export default function DeviceRow({ device, showPerson = true }: DeviceRowProps) {
+    const [expanded, setExpanded] = useState(false);
 
-  return (
-    <div
-      className={`transition-all duration-300 relative ${
-        expanded ? "bg-blue-50" : "bg-white hover:bg-gray-50"
-      }`}
-    >
+    return (
+        <>
+            <div
+                className={`grid ${showPerson ? "grid-cols-7" : "grid-cols-6"} gap-4 px-6 py-3 cursor-pointer border-t border-gray-100 hover:bg-gray-50`}
+                onClick={() => setExpanded(!expanded)}
+            >
+                <div>{device.device}</div>
+                <div>{device.model}</div>
+                <div>{device.code}</div>
+                <div>{device.date}</div>
+                <div>{device.status}</div>
+                <div>{device.location}</div>
+                {showPerson && (
+                    <div className="flex items-center justify-between">
+                        <span>{device.person}</span>
+                        {expanded ? (
+                            <ChevronUp className="text-gray-500" />
+                        ) : (
+                            <ChevronDown className="text-gray-500" />
+                        )}
+                    </div>
+                )}
+            </div>
 
-      <div
-        className="grid grid-cols-7 gap-4 px-6 py-3 cursor-pointer"
-        onClick={() => setExpanded(!expanded)}
-      >
-        <div>{device.name}</div>
-        <div>{device.model}</div>
-        <div>{device.code}</div>
-        <div>{device.date}</div>
-        <div>{device.status}</div>
-        <div>{device.location}</div>
-        <div className="flex items-center justify-between">
-          <span>{device.person}</span>
-          {expanded ? (
-            <ChevronUp className="text-gray-500" />
-          ) : (
-            <ChevronDown className="text-gray-500" />
-          )}
-        </div>
-      </div>
-
-      {expanded && <DeviceDetails comments={device.comments} />}
-    </div>
-  );
+            {expanded && <DeviceDetails comments={device.comments} />}
+        </>
+    );
 }
+
