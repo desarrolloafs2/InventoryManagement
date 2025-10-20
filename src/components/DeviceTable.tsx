@@ -18,9 +18,7 @@ export default function DeviceTable({ devices, showPerson = true }: DeviceTableP
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       {/* Encabezado */}
       <div
-        className={`grid ${
-          showPerson ? "grid-cols-7" : "grid-cols-6"
-        } gap-4 bg-sky-50 text-sm font-semibold text-gray-600 px-6 py-3`}
+        className={`grid ${showPerson ? "grid-cols-7" : "grid-cols-6"} gap-4 bg-sky-50 text-sm font-semibold text-gray-600 px-6 py-3 sticky top-0 z-10`}
       >
         <div>Artículo</div>
         <div>Modelo</div>
@@ -31,22 +29,18 @@ export default function DeviceTable({ devices, showPerson = true }: DeviceTableP
         {showPerson && <div>Persona</div>}
       </div>
 
-      {/* Filas */}
-      <div className="divide-y divide-gray-200">
+      {/* Filas con scroll */}
+      <div className="divide-y divide-gray-200 max-h-96 overflow-y-auto">
         {devices.map((device) => {
           const isExpanded = expanded === device.id;
           return (
             <div
               key={device.id}
-              className={`transition-all duration-300 ${
-                isExpanded ? "bg-sky-100" : "bg-white hover:bg-gray-50"
-              }`}
+              className={`transition-all duration-300 ${isExpanded ? "bg-sky-100" : "bg-white hover:bg-gray-50"}`}
             >
               {/* Fila principal */}
               <div
-                className={`grid ${
-                  showPerson ? "grid-cols-7" : "grid-cols-6"
-                } gap-4 px-6 py-3 cursor-pointer`}
+                className={`grid ${showPerson ? "grid-cols-7" : "grid-cols-6"} gap-4 px-6 py-3 cursor-pointer`}
                 onClick={() => toggleExpand(device.id)}
               >
                 <div>{device.device}</div>
@@ -59,11 +53,7 @@ export default function DeviceTable({ devices, showPerson = true }: DeviceTableP
                 {showPerson && (
                   <div className="flex items-center justify-between">
                     <span>{device.person}</span>
-                    {isExpanded ? (
-                      <ChevronUp className="text-gray-500" />
-                    ) : (
-                      <ChevronDown className="text-gray-500" />
-                    )}
+                    {isExpanded ? <ChevronUp className="text-gray-500" /> : <ChevronDown className="text-gray-500" />}
                   </div>
                 )}
               </div>
@@ -96,4 +86,3 @@ export default function DeviceTable({ devices, showPerson = true }: DeviceTableP
     </div>
   );
 }
-
